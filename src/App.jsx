@@ -1,7 +1,10 @@
 import "./App.css";
+import Logo from "./components/header/Logo";
 
 function App() {
-  return <h1>Welcome News Paper Feeder</h1>;
+  return <div>
+    <Logo />
+    </div>;
 }
 
 export default App;
