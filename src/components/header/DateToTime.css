@@ -1,0 +1,16 @@
+.move-left-right {
+  animation: moveLeftRight 4s linear infinite;
+}
+
+@keyframes moveLeftRight {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+

@@ -1,4 +1,5 @@
 import { getFormattedDate } from "../../utils/date-util";
+import "./DateToTime.css";
 
 const DateToTime = () => {
   const currentTimestamp = Date.now(); // Get the current timestamp in milliseconds
@@ -10,6 +11,7 @@ const DateToTime = () => {
       {/* date */}
       <div className="flex items-center space-x-4">
         <svg
+          className="move-left-right"
           width={16}
           height={16}
           viewBox="0 0 16 16"
