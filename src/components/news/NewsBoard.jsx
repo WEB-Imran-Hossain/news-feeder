@@ -1,5 +1,5 @@
-import React from 'react';
-
+import ThumbnileOne from "../../assets/icons/thumb_lg.png"
+import ThumbnileTwo from "../../assets/icons/thumb.png"
 const NewsBoard = () => {
     return (
         <>
@@ -32,7 +32,7 @@ const NewsBoard = () => {
                 </div>
                 {/* thumb */}
                 <div className="col-span-12 lg:col-span-8">
-                  <img className="w-full" src="./assets/thumb_lg.png" alt="thumb" />
+                  <img className="w-full" src={ThumbnileOne} alt="thumb" />
                   <p className="mt-5 text-base text-[#5C5955]">
                     Illustration: Karolis Strautniekas
                   </p>
@@ -56,7 +56,7 @@ const NewsBoard = () => {
                 </div>
                 {/* thumb */}
                 <div className="col-span-12 md:col-span-6">
-                  <img className="w-full" src="./assets/thumb.png" alt="thumb" />
+                  <img className="w-full" src={ThumbnileTwo} alt="thumb" />
                 </div>
               </div>
               {/* news item ends */}
@@ -187,7 +187,7 @@ const NewsBoard = () => {
               <div className="space-y-6 divide-y-2 divide-[#D5D1C9]">
                 {/* news item */}
                 <div className="col-span-12 mb-6 md:col-span-8">
-                  <img className="w-full" src="./assets/thumb.png" alt="thumb" />
+                  <img className="w-full" src={ThumbnileTwo} alt="thumb" />
                   {/* info */}
                   <div className="col-span-12 mt-6 md:col-span-4">
                     <a href="#">
