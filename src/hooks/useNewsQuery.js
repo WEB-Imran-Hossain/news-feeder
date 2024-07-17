@@ -4,6 +4,8 @@ const useNewsQuery = () => {
   const [newsData, setNewsData] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [newCategory, setNewCategory] = useState('general'); // Default category
+  
 
   useEffect(() => {
     const fetchNewsData = async () => {
@@ -46,7 +48,8 @@ const useNewsQuery = () => {
     fetchNewsData();
   }, []);
 
-  return { newsData, loading, error };
+
+  return { newsData, loading, error, newCategory, setNewCategory};
 };
 
 export default useNewsQuery;

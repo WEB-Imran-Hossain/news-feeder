@@ -146,7 +146,6 @@
         "publishedAt": "2024-02-07T06:03:29Z",
         "content": "Moon Alert\r\nThere are no restrictions to shopping or important decisions. The moon is in Capricorn.\r\nAries (March 21-April 19)\r\nSomething unexpected might occur that makes you look good to others, es… [+3908 chars]"
       },
-
       {
         "source": {
           "id": "associated-press",
@@ -744,7 +743,6 @@
         "publishedAt": "2024-02-07T13:25:23Z",
         "content": null
       },
-
       {
         "source": {
           "id": null,
@@ -797,7 +795,6 @@
         "publishedAt": "2024-02-07T12:36:09Z",
         "content": null
       },
-
       {
         "source": {
           "id": "abc-news",
@@ -885,7 +882,7 @@
         "title": "Taylor Swift's presence at Super Bowl prompts Las Vegas nightlife industry to expand entertainment offerings - Fox Business",
         "description": "Las Vegas is anticipating the arrival of Taylor Swift for Super Bowl weekend. The \"Midnights\" singer is traveling to Sin City to support Travis Kelce and the Kansas City Chiefs.",
         "url": "https://www.foxbusiness.com/entertainment/taylor-swift-super-bowl-lviii-prompts-las-vegas-nightlife-industry-expand-entertainment-offerings",
-        "urlToImage": "https://a57.foxnews.com/static.foxbusiness.com/foxbusiness.com/content/uploads/2024/01/0/0/Taylor-Swift17.jpg?ve=1&tl=1",
+        "urlToImage": "https://a57.foxnews.com/static.foxbusiness.com/foxbusiness.com/content/uploads/2024/07/672/378/powell-and-trump.jpg?ve=1&tl=1",
         "publishedAt": "2024-02-07T09:30:00Z",
         "content": "Taylor Swift's decision to travel to Las Vegas for the Super Bowl to support her boyfriend, Travis Kelce, has changed the nightlife experience for fans.\r\nFox News Digital confirmed Swift plans on bei… [+4515 chars]"
       },
@@ -902,7 +899,6 @@
         "publishedAt": "2024-02-07T08:35:40Z",
         "content": "By Sean Coughlan, royal correspondent, and Sean SeddonBBC News\r\nWatch: William seen for first time since King's cancer diagnosis\r\nThe Prince of Wales has carried out his first public duty since his w… [+2728 chars]"
       },
-
       {
         "source": {
           "id": "bleacher-report",
@@ -1465,7 +1461,7 @@
   },
   "sports": {
     "status": "ok",
-    "totalResults": 70,
+    "totalResults": 20,
     "articles": [
       {
         "source": {
@@ -1731,7 +1727,7 @@
   },
   "technology": {
     "status": "ok",
-    "totalResults": 69,
+    "totalResults": 20,
     "articles": [
       {
         "source": {
