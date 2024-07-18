@@ -1,6 +1,27 @@
 import FooterLogo from "../../assets/icons/logo_light.png"
+import { useContext, useState } from "react";
+import { NewsContext } from "../../context";
 
 const Footer = () => {
+  const { setNewCategory } = useContext(NewsContext);
+  const [activeCategory, setActiveCategory] = useState("general");
+
+  const handleNewsMenu = (newCategory) => {
+    setNewCategory(newCategory);
+    setActiveCategory(newCategory); // Update active category state
+  };
+
+  // Define categories array with IDs and names
+  const categories = [
+    { id: "general", name: "General" },
+    { id: "business", name: "Business" },
+    { id: "entertainment", name: "Entertainment" },
+    { id: "health", name: "Health" },
+    { id: "science", name: "Science" },
+    { id: "sports", name: "Sports" },
+    { id: "technology", name: "Technology" },
+  ];
+
     return (
         <>
   {/* Footer */}
@@ -13,82 +34,22 @@ const Footer = () => {
             src={FooterLogo}
             alt="lws"
           />
-          <ul role="list" className="space-y-4">
-            <li>
-              <a href="#" className="text-sm font-semibold">
-                Home
-              </a>
-            </li>
-            <li>
-              <a href="#" className="text-sm font-semibold">
-                General
-              </a>
-            </li>
-            <li>
-              <a href="#" className="text-sm font-semibold">
-                Business
-              </a>
-            </li>
-            <li>
-              <a href="#" className="text-sm font-semibold">
-                Entertainment
-              </a>
-            </li>
-            <li>
-              <a href="#" className="text-sm font-semibold">
-                Health
-              </a>
-            </li>
-            <li>
-              <a href="#" className="text-sm font-semibold">
-                Science
-              </a>
-            </li>
+    <div className="flex flex-col space-y-4">
+    {categories.map((category) => (
+          <ul key={category.id}>
+            <p
+              onClick={() => handleNewsMenu(category.id)}
+              className={`px-3 py-2 rounded cursor-pointer ${activeCategory === category.id
+                  ? "bg-[#00D991] text-white"
+                  : " hover:text-black hover:bg-gray-300"
+                }`}
+            >
+              {category.name}
+            </p>
           </ul>
-          <ul role="list" className="space-y-4">
-            <li>
-              <a href="#" className="text-sm font-semibold">
-                Sports
-              </a>
-            </li>
-            <li>
-              <a href="#" className="text-sm font-semibold">
-                Technology
-              </a>
-            </li>
-          </ul>
-          <ul role="list" className="space-y-4">
-            <li>
-              <a href="#" className="text-sm">
-                Terms of Use
-              </a>
-            </li>
-            <li>
-              <a href="#" className="text-sm">
-                Privacy
-              </a>
-            </li>
-            <li>
-              <a href="#" className="text-sm">
-                Cookies Policy
-              </a>
-            </li>
-            <li>
-              <a href="#" className="text-sm">
-                Manage Cookies
-              </a>
-            </li>
-            <li>
-              <a href="#" className="text-sm">
-                Accessibility
-              </a>
-            </li>
-            <li>
-              <a href="#" className="text-sm">
-                Contact Us
-              </a>
-            </li>
-          </ul>
+           ))}
+    </div>
+
           <div className="flex space-x-6">
             <a>
               <svg
@@ -146,14 +107,14 @@ const Footer = () => {
             </p>
           </div>
           {/* subscribe */}
-          <button className="rounded-full bg-[#00D991] px-7 py-2.5 text-xs font-medium text-[#F1EFEA] hover:opacity-80 lg:text-base">
+          <button className="rounded-full bg-[#00D991] text-white px-7 py-2.5 text-xs font-medium hover:text-black  hover:bg-gray-300 lg:text-base">
             Subscribe
           </button>
         </div>
       </div>
     </div>
-    <div className="container mt-6 lg:mt-12">
-      <p className="text-center">
+    <div className=" mt-6 lg:mt-12">
+      <p className="text-center w-4/5 mx-auto">
         Copyright ©2023 | All rights reserved by Learn with Sumit
       </p>
     </div>
