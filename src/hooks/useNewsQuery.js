@@ -4,14 +4,14 @@ const useNewsQuery = () => {
   const [newsData, setNewsData] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [newCategory, setNewCategory] = useState('general'); // Default category
-  
+  const [newCategory, setNewCategory] = useState("general"); // Default category
 
   useEffect(() => {
     const fetchNewsData = async () => {
-      setLoading(true);
-      setError(null);
+      setLoading(true); // Set loading state to true
+      setError(null); // Clear any previous error
 
+      // Array of news categories to fetch
       const categories = [
         "general",
         "business",
@@ -21,7 +21,8 @@ const useNewsQuery = () => {
         "sports",
         "technology",
       ];
-
+      
+      // Object to store news data for each category
       const newsData = {};
 
       for (const category of categories) {
@@ -48,8 +49,7 @@ const useNewsQuery = () => {
     fetchNewsData();
   }, []);
 
-
-  return { newsData, loading, error, newCategory, setNewCategory};
+  return { newsData, loading, error, newCategory, setNewCategory };
 };
 
 export default useNewsQuery;

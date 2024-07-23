@@ -3,10 +3,13 @@ import { NewsContext } from "../../context";
 
 const Categories = () => {
   const { setNewCategory } = useContext(NewsContext);
+
+   // State to manage the active category
   const [activeCategory, setActiveCategory] = useState("general");
 
   const handleNewsMenu = (newCategory) => {
-    setNewCategory(newCategory);
+
+    setNewCategory(newCategory);// newCategory is passed to setNewCategory function
     setActiveCategory(newCategory); // Update active category state
   };
 
