@@ -12,7 +12,7 @@ const useNewsQuery = () => {
   const [searchLoading, setSearchLoading] = useState(false);
   const [searchError, setSearchError] = useState(null);
   
-
+// For News
   useEffect(() => {
     const fetchNewsData = async () => {
       setLoading(true); // Set loading state to true
@@ -56,6 +56,7 @@ const useNewsQuery = () => {
     fetchNewsData();
   }, []);
 
+  // For Search field
   useEffect(() => {
     const performSearch = async () => {
       const normalizedSearchText = searchText.trim().toLowerCase(); // Normalize case

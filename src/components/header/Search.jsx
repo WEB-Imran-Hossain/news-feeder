@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import SearchIcon from "../../assets/icons/search.svg";
 import { NewsContext } from "../../context";
+import './Search.css'
 
 const Search = () => {
   const { searchText,
@@ -29,8 +30,8 @@ const Search = () => {
 
 
   return (
-    <div className="p-4">
-      <div className="mb-4 flex items-center">
+    <div className="flex items-center space-x-3 lg:space-x-8">
+      <div className="flex justify-center items-center">
         <img
           onClick={handleIconClick}
           className="w-6 h-6 cursor-pointer"
@@ -43,7 +44,7 @@ const Search = () => {
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
             placeholder="Search for news..."
-            className="ml-2 p-2 border border-gray-300 rounded transition-width duration-300"
+            className="ml-2 p-2 border border-gray-300 rounded focus:outline-none input-transition"
           />
         )}
       </div>

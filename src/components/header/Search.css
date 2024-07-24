@@ -1,0 +1,22 @@
+@keyframes scaleIn {
+    from {
+      transform: scale(0.95);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  .input-transition {
+    transition: border-color var(--transition-duration) var(--transition-ease), 
+                box-shadow var(--transition-duration) var(--transition-ease);
+    border: 1px solid #ccc;
+    animation: scaleIn 0.3s ease;
+  }
+  
+  .input-transition:focus {
+    border-color: var(--border-color-focus);
+    box-shadow: var(--box-shadow-focus);
+  }
