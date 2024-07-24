@@ -2,7 +2,17 @@ import { NewsContext } from "../context";
 import useNewsQuery from "../hooks/useNewsQuery";
 
 const NewsProvider = ({ children }) => {
-  const { newsData, loading, error, newCategory, setNewCategory } =
+  const {  newsData,
+    loading,
+    error,
+    newCategory,
+    setNewCategory,
+    searchQuery,
+    setSearchQuery,
+    searchResults,
+    searchLoading,
+    searchError,
+    performSearch, } =
     useNewsQuery();
 
   const contextValue = {
@@ -11,6 +21,12 @@ const NewsProvider = ({ children }) => {
     error,
     newCategory,
     setNewCategory,
+    searchQuery,
+    setSearchQuery,
+    searchResults,
+    searchLoading,
+    searchError,
+    performSearch,
   };
 
   return (

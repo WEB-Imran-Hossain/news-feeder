@@ -1,35 +1,39 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import SearchIcon from "../../assets/icons/search.svg";
+import { NewsContext } from "../../context";
 
 const Search = () => {
-  const [query, setQuery] = useState('');
-  const [articles, setArticles] = useState([]);
+  const { newsData,searchQuery,
+    setSearchQuery,
+    searchResults,
+    searchLoading,
+    searchError,
+    performSearch } = useContext(NewsContext);
+
+    console.log(" data seen", newsData);
+
   const [showInput, setShowInput] = useState(false);
   const [noArticles, setNoArticles] = useState(false);
 
-  const handleSearch = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await fetch(`http://localhost:8000/v2/search?q=${query}`);
-      const data = await response.json();
-      setArticles(data.articles);
-      setNoArticles(data.articles.length === 0);
-    } catch (error) {
-      console.error('Error fetching the news:', error);
-      setNoArticles(true);
+   const handleSearch = async () => {
+    if (searchQuery.trim()) {
+      await performSearch(searchQuery);
+      setNoArticles(searchResults.length === 0);
     }
   };
 
-  const handleIconClick = () => {
+  const handleIconClick = async () => {
     if (showInput) {
-      if (query) {
-        handleSearch(); // Perform search when input is visible and query is not empty
-      }
-      setShowInput(false); // Hide input after searching or if input is empty
+      // Perform search and hide input
+      await handleSearch();
+      setShowInput(false);
     } else {
-      setShowInput(true); // Show input if it was previously hidden
+      // Show input
+      setShowInput(true);
     }
   };
+
+  const isValidResults = Array.isArray(searchResults);
 
   return (
     <div className="p-4">
@@ -43,25 +47,36 @@ const Search = () => {
         {showInput && (
           <input
             type="text"
-            value={query}
-            onChange={(e) => setQuery(e.target.value)}
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search for news..."
             className="ml-2 p-2 border border-gray-300 rounded transition-width duration-300"
+            onKeyPress={(e) => {
+              if (e.key === 'Enter') {
+                handleSearch(); // Perform search on Enter key press
+              }
+            }}
           />
         )}
       </div>
       <div>
-        {articles.length > 0 ? (
-          <ul>
-            {articles.map((article, index) => (
-              <li key={index} className="mb-2">
-                <h2 className="text-xl font-bold">{article.title}</h2>
-                <p>{article.description}</p>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          noArticles && <p>No articles found</p>
+        {searchLoading && <p>Searching...</p>}
+        {searchError && <p>Error fetching search results: {searchError}</p>}
+        {!searchLoading && !searchError && (
+          <>
+            {isValidResults && searchResults.length > 0 ? (
+              <ul>
+                {searchResults.map((article, index) => (
+                  <li key={index} className="mb-2">
+                    <h2 className="text-xl font-bold">{article.title}</h2>
+                    <p>{article.description}</p>
+                  </li>
+                ))}
+              </ul>
+            ) : noArticles ? (
+              <p>No articles found</p>
+            ) : null}
+          </>
         )}
       </div>
     </div>

@@ -3,22 +3,24 @@ import { useContext } from "react";
 import { NewsContext } from "../../context";
 
 const NewsBoard = () => {
-  const { newsData, loading, error, newCategory } = useContext(NewsContext);
+  const { newsData, newCategory, searchResults, searchQuery, searchLoading, searchError } = useContext(NewsContext);
 
-  if (loading) {
-    return <p>Loading...</p>;
+  if (searchLoading) {
+    return <p>Searching...</p>;
   }
 
-  if (error) {
-    return <p>Error: {error}</p>;
+  if (searchError) {
+    return <p>Error: {searchError}</p>;
   }
 
-  const renderNewsItems = (category, ThumbnileOne) => {
-    if (!newsData[category] || newsData[category].length === 0) {
-      return <p>No news available for {category}</p>;
+  const articlesToDisplay = searchQuery ? searchResults : newsData[newCategory];
+
+   const renderNewsItems = (articles, ThumbnileOne) => {
+    if (!articles || articles.length === 0) {
+      return <p>No news available</p>;
     }
 
-    return newsData[category]?.map((article, index) => (
+    return articles.map((article, index) => (
       <div key={index}>
         <div>
           {/* news title */}
@@ -67,7 +69,7 @@ const NewsBoard = () => {
         <div className="w-[80%] mx-auto">
           <div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {renderNewsItems(newCategory, ThumbnileOne)}
+              {renderNewsItems(articlesToDisplay, ThumbnileOne)}
             </div>
           </div>
         </div>
