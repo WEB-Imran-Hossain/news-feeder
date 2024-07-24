@@ -5,10 +5,13 @@ const useNewsQuery = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [newCategory, setNewCategory] = useState("general"); // Default category
-  const [searchQuery, setSearchQuery] = useState("");
+  
+
+  const [searchText, setSearchText] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [searchLoading, setSearchLoading] = useState(false);
   const [searchError, setSearchError] = useState(null);
+  
 
   useEffect(() => {
     const fetchNewsData = async () => {
@@ -53,21 +56,43 @@ const useNewsQuery = () => {
     fetchNewsData();
   }, []);
 
-  const performSearch = async () => {
-    setSearchLoading(true);
-    setSearchError(null);
-    try {
-      const response = await fetch(`http://localhost:8000/v2/search?q=${encodeURIComponent(searchQuery)}`);
-      if (!response.ok) {
-        throw new Error(`Error: ${response.statusText}`);
+  useEffect(() => {
+    const performSearch = async () => {
+      const normalizedSearchText = searchText.trim().toLowerCase(); // Normalize case
+  
+      if (!normalizedSearchText) return; // Skip if search text is empty
+  
+      setSearchLoading(true);
+      setSearchError(null);
+  
+      // Array of search queries (in this case, just one, but you can extend this)
+      const searchQueries = [normalizedSearchText];
+  
+      // Object to store search results for each query
+      const searchResults = {};
+  
+      for (const query of searchQueries) {
+        try {
+          const response = await fetch(`http://localhost:8000/v2/search?q=${encodeURIComponent(query)}`);
+          if (!response.ok) {
+            throw new Error(`Error: ${response.statusText}`);
+          }
+          const data = await response.json();
+          searchResults[query] = data.articles || [];
+        } catch (err) {
+          setSearchError(err.message || "An error occurred");
+          setSearchLoading(false);
+          return;
+        }
       }
-      const data = await response.json();
-      setSearchResults(data.articles || []);
-    } catch (err) {
-      setSearchError(err.message || "An error occurred");
-    }
-    setSearchLoading(false);
-  };
+  
+      setSearchResults(searchResults);
+      setSearchLoading(false);
+    };
+  
+    performSearch();
+  }, [searchText]); // Dependency array: perform search when searchText changes
+  
   
 
   return {
@@ -76,12 +101,11 @@ const useNewsQuery = () => {
     error,
     newCategory,
     setNewCategory,
-    searchQuery,
-    setSearchQuery,
+    searchText,
+    setSearchText,
     searchResults,
     searchLoading,
-    searchError,
-    performSearch,
+    searchError
   };
 };
 

@@ -3,7 +3,7 @@ import { useContext } from "react";
 import { NewsContext } from "../../context";
 
 const NewsBoard = () => {
-  const { newsData, newCategory, searchResults, searchQuery, searchLoading, searchError } = useContext(NewsContext);
+  const { newsData, newCategory, searchResults, searchText, searchLoading, searchError } = useContext(NewsContext);
 
   if (searchLoading) {
     return <p>Searching...</p>;
@@ -13,69 +13,53 @@ const NewsBoard = () => {
     return <p>Error: {searchError}</p>;
   }
 
-  const articlesToDisplay = searchQuery ? searchResults : newsData[newCategory];
+  const articlesToDisplay = searchText ? searchResults[searchText] || [] : newsData[newCategory];
 
-   const renderNewsItems = (articles, ThumbnileOne) => {
+
+   const renderNewsItems = (articles) => {
     if (!articles || articles.length === 0) {
       return <p>No news available</p>;
     }
 
     return articles.map((article, index) => (
-      <div key={index}>
-        <div>
-          {/* news title */}
-          <a href={article.url}>
-            <h2 className="mb-2.5 text-xl font-bold lg:text-2xl text-[#292219] hover:text-[#00D991] transition-colors duration-300 ">
-              {article.title}
-            </h2>
-          </a>
-
-          {/* news description */}
-          <p className="text-base text-[#292219]">{article.description}</p>
-
-          {/* news publish date */}
-          <p className="mt-5 text-base text-[#94908C]">
-            Published on:{" "}
-            {new Date(article.publishedAt).toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "short",
-              day: "numeric",
-            })}
-          </p>
-        </div>
-
-        {/* news image */}
+      <div key={index} className="border border-gray-200 p-4 rounded-lg shadow-md">
+        <a href={article.url}>
+          <h2 className="mb-2.5 text-xl font-bold lg:text-2xl text-[#292219] hover:text-[#00D991] transition-colors duration-300">
+            {article.title}
+          </h2>
+        </a>
+        <p className="text-base text-[#292219]">{article.description}</p>
+        <p className="mt-5 text-base text-[#94908C]">
+          Published on:{" "}
+          {article.publishedAt ? new Date(article.publishedAt).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "short",
+            day: "numeric",
+          }) : "Unknown"}
+        </p>
         {article.urlToImage ? (
-          <img className="w-full" src={article.urlToImage} alt="thumb" />
+          <img className="w-full" src={article.urlToImage} alt={article.title || "News thumbnail"} />
         ) : article.url ? (
-          // video
           <div>
             <video className="w-full" controls>
               <source src={article.url} type="video/mp4" />
             </video>
           </div>
         ) : (
-          //default image
-          <img className="w-full" src={ThumbnileOne} alt="default thumb" />
+          <img className="w-full" src={ThumbnileOne} alt="Default news thumbnail" />
         )}
       </div>
     ));
   };
 
   return (
-    <>
-      {/* main */}
-      <main className="my-10 lg:my-14">
-        <div className="w-[80%] mx-auto">
-          <div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {renderNewsItems(articlesToDisplay, ThumbnileOne)}
-            </div>
-          </div>
+    <main className="my-10 lg:my-14">
+      <div className="w-[80%] mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {renderNewsItems(articlesToDisplay)}
         </div>
-      </main>
-      {/* main ends */}
-    </>
+      </div>
+    </main>
   );
 };
 
