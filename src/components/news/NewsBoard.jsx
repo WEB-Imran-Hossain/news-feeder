@@ -21,7 +21,6 @@ const NewsBoard = () => {
     return newsData[category]?.map((article, index) => (
       <div key={index}>
         <div>
-
           {/* news title */}
           <a href={article.url}>
             <h2 className="mb-2.5 text-xl font-bold lg:text-2xl text-[#292219] hover:text-[#00D991] transition-colors duration-300 ">
@@ -42,21 +41,21 @@ const NewsBoard = () => {
             })}
           </p>
         </div>
-       
-      {/* news image */}
-      {article.urlToImage ? (
-        <img className="w-full" src={article.urlToImage} alt="thumb" />
-      ) : article.url ? (
-        // video
-        <div>
-          <video className="w-full" controls>
-          <source src={article.url} type="video/mp4" />
-        </video>
-        </div>
-      ) : (
-       //default image
-        <img className="w-full" src={ThumbnileOne} alt="default thumb" />
-      )}
+
+        {/* news image */}
+        {article.urlToImage ? (
+          <img className="w-full" src={article.urlToImage} alt="thumb" />
+        ) : article.url ? (
+          // video
+          <div>
+            <video className="w-full" controls>
+              <source src={article.url} type="video/mp4" />
+            </video>
+          </div>
+        ) : (
+          //default image
+          <img className="w-full" src={ThumbnileOne} alt="default thumb" />
+        )}
       </div>
     ));
   };
@@ -66,7 +65,6 @@ const NewsBoard = () => {
       {/* main */}
       <main className="my-10 lg:my-14">
         <div className="w-[80%] mx-auto">
-         
           <div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {renderNewsItems(newCategory, ThumbnileOne)}
@@ -80,10 +78,3 @@ const NewsBoard = () => {
 };
 
 export default NewsBoard;
-
-
-
-
-
-
-     

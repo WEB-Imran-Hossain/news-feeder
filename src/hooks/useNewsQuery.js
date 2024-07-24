@@ -21,7 +21,7 @@ const useNewsQuery = () => {
         "sports",
         "technology",
       ];
-      
+
       // Object to store news data for each category
       const newsData = {};
 
