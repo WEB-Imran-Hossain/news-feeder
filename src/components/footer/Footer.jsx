@@ -3,16 +3,17 @@ import { useContext, useState } from "react";
 import { NewsContext } from "../../context";
 
 const Footer = () => {
-  const { setNewCategory } = useContext(NewsContext);
-  const [activeCategory, setActiveCategory] = useState("general");
+  const { setCategory } = useContext(NewsContext);
+  const [activeCategory, setActiveCategory] = useState("all");
 
   const handleNewsMenu = (newCategory) => {
-    setNewCategory(newCategory);
-    setActiveCategory(newCategory); // Update active category state
+    setCategory(newCategory);
+    setActiveCategory(newCategory);
   };
 
   // Define categories array with IDs and names
   const categories = [
+    { id: "all", name: "All" }, // Add all category
     { id: "general", name: "General" },
     { id: "business", name: "Business" },
     { id: "entertainment", name: "Entertainment" },
@@ -25,12 +26,16 @@ const Footer = () => {
   return (
     <>
       {/* Footer */}
-      <footer className="bg-neutral-800 pb-8 pt-20 text-white sm:pt-24">
-        <div className="container mx-auto">
-          <div className=" xl:grid xl:grid-cols-12 xl:gap-12">
-            <div className="grid grid-cols-2 gap-8 md:grid md:grid-cols-2 md:gap-12 lg:grid-cols-3 xl:col-span-7 xl:grid-cols-5 cursor-pointer">
-              <img className="max-md:col-span-2" src={FooterLogo} alt="lws" />
-              <div className="flex flex-col space-y-4">
+      <footer className="bg-neutral-800 text-white lg:pb-8 lg:pt-20 md:pt-10 sm:pt-24">
+        <div className=" flex md:w-[80vw] mx-auto p-10">
+          <div className="flex ">
+            <div className=" lg:flex  lg:gap-x-24 cursor-pointer">
+              {/* logo */}
+              <div>
+                <img className="max-md:col-span-2" src={FooterLogo} alt="lws" />
+              </div>
+              {/* menu */}
+              <div className="grid md:grid-cols-2 gap-8 grid-cols-1 mt-10 lg:mt-0">
                 {categories.map((category) => (
                   <ul key={category.id}>
                     <p
@@ -46,11 +51,11 @@ const Footer = () => {
                   </ul>
                 ))}
               </div>
-
-              <div className="flex space-x-6">
+              {/* social icon */}
+              <div className="flex gap-5 mt-10 lg:mt-0">
                 <a>
                   <svg
-                    className="h-6 w-6"
+                    className="h-10 w-10"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                     aria-hidden="true"
@@ -64,7 +69,7 @@ const Footer = () => {
                 </a>
                 <a href="#">
                   <svg
-                    className="h-6 w-6"
+                    className="h-10 w-10"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                     aria-hidden="true"
@@ -78,7 +83,7 @@ const Footer = () => {
                 </a>
                 <a href="#">
                   <svg
-                    className="h-6 w-6"
+                    className="h-10 w-10"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                     aria-hidden="true"
@@ -91,27 +96,28 @@ const Footer = () => {
                   </svg>
                 </a>
               </div>
-            </div>
-            <div className="col-span-12 mt-10 flex items-start gap-4 xl:col-span-5 xl:mt-0">
-              <div className="flex-1">
-                <h3 className="text-2xl font-semibold">
-                  Subscribe and be informed first hand about the actual economic
-                  news.
-                </h3>
-                <p className="mt-2 text-sm leading-6">
-                  All the day's headlines and highlights, direct to you every
-                  morning.
-                </p>
+              {/* newsletter */}
+              <div>
+                <div className="text-2xl font-semibold mt-10 lg:mt-0">
+                  <h3>
+                    Subscribe and be informed first hand about the actual
+                    economic news.
+                  </h3>
+                  <p className="mt-2 text-sm">
+                    All the day's headlines and highlights, direct to you every
+                    morning.
+                  </p>
+                  {/* subscribe */}
+                  <button className="rounded-full bg-[#00D991] text-white px-7 py-2.5 text-xs font-medium hover:text-black  hover:bg-gray-300 lg:text-base mt-3">
+                    Subscribe
+                  </button>
+                </div>
               </div>
-              {/* subscribe */}
-              <button className="rounded-full bg-[#00D991] text-white px-7 py-2.5 text-xs font-medium hover:text-black  hover:bg-gray-300 lg:text-base">
-                Subscribe
-              </button>
             </div>
           </div>
         </div>
-        <div className=" mt-6 lg:mt-12">
-          <p className="text-center w-4/5 mx-auto">
+        <div className=" lg:mt-12">
+          <p className="text-center w-4/5 mx-auto p-5">
             Copyright ©2023 | All rights reserved by Learn with Sumit
           </p>
         </div>

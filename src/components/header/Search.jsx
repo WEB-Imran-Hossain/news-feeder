@@ -1,23 +1,16 @@
 import { useContext, useState } from "react";
 import SearchIcon from "../../assets/icons/search.svg";
+import "./Search.css";
 import { NewsContext } from "../../context";
-import './Search.css'
 
 const Search = () => {
-  const { searchText,
-    setSearchText,
-    searchResults,
-    searchLoading,
-    searchError,
-    performSearch } = useContext(NewsContext);
-
-
-
+  const { searchText, setSearchText, performSearch, isSearching } =
+    useContext(NewsContext);
   const [showInput, setShowInput] = useState(false);
 
   const handleSearch = async () => {
     if (searchText.trim()) {
-      await performSearch();
+      await performSearch(searchText);
     }
   };
 
@@ -28,6 +21,10 @@ const Search = () => {
     setShowInput(!showInput);
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await handleSearch();
+  };
 
   return (
     <div className="flex items-center space-x-3 lg:space-x-8">
@@ -39,31 +36,24 @@ const Search = () => {
           alt="Search"
         />
         {showInput && (
-          <input
-            type="text"
-            value={searchText}
-            onChange={(e) => setSearchText(e.target.value)}
-            placeholder="Search for news..."
-            className="ml-2 p-2 border border-gray-300 rounded focus:outline-none input-transition"
-          />
+          <form onSubmit={handleSubmit} className="flex items-center ml-2">
+            <input
+              type="text"
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+              placeholder="Search for news..."
+              className="p-2 border border-gray-300 rounded focus:outline-none input-transition"
+            />
+            <button
+              type="submit"
+              className="ml-2 p-2  text-white hover:text-black font-bold border-gray-300 rounded hover:bg-gray-300 bg-[#00D991] "
+            >
+              Go
+            </button>
+          </form>
         )}
       </div>
-      <div>
-        {searchLoading && <p>Searching...</p>}
-        {searchError && <p>Error fetching search results: {searchError}</p>}
-        {!searchLoading && !searchError && searchResults.length > 0 && (
-          <ul>
-            {searchResults.map((article, index) => (
-              <li key={index} className="mb-2">
-                <h2 className="text-xl font-bold">{article.title}</h2>
-                <p>{article.description}</p>
-              </li>
-            ))}
-          </ul>
-        )}
-        {!searchLoading && !searchError && searchResults.length === 0
-        }
-      </div>
+      {isSearching && <p>Searching...</p>} {/* Display searching message */}
     </div>
   );
 };

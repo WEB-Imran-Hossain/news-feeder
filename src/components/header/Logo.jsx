@@ -1,7 +1,7 @@
-import Search from "./Search";
 import LogoIcon from "../../assets/icons/logo.png";
 import Categories from "./Categories";
 import DateToTime from "./DateToTime";
+import Search from "./Search";
 const Logo = () => {
   return (
     <>

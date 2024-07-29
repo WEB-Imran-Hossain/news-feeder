@@ -2,19 +2,16 @@ import { useContext, useState } from "react";
 import { NewsContext } from "../../context";
 
 const Categories = () => {
-  const { setNewCategory } = useContext(NewsContext);
-
-   // State to manage the active category
-  const [activeCategory, setActiveCategory] = useState("general");
+  const { setCategory } = useContext(NewsContext);
+  const [activeCategory, setActiveCategory] = useState("all");
 
   const handleNewsMenu = (newCategory) => {
-
-    setNewCategory(newCategory);// newCategory is passed to setNewCategory function
-    setActiveCategory(newCategory); // Update active category state
+    setCategory(newCategory);
+    setActiveCategory(newCategory);
   };
 
-  // Define categories array with IDs and names
   const categories = [
+    { id: "all", name: "All" },
     { id: "general", name: "General" },
     { id: "business", name: "Business" },
     { id: "entertainment", name: "Entertainment" },
@@ -31,10 +28,11 @@ const Categories = () => {
           <li key={category.id}>
             <p
               onClick={() => handleNewsMenu(category.id)}
-              className={`px-3 py-2 rounded ${activeCategory === category.id
+              className={`px-3 py-2 rounded ${
+                activeCategory === category.id
                   ? "bg-[#00D991] text-white"
-                  : " text-black hover:bg-gray-300"
-                }`}
+                  : "text-black hover:bg-gray-300"
+              }`}
             >
               {category.name}
             </p>
