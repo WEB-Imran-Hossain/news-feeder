@@ -1,14 +1,12 @@
 import FooterLogo from "../../assets/icons/logo_light.png";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import { NewsContext } from "../../context";
 
 const Footer = () => {
   const { setCategory } = useContext(NewsContext);
-  const [activeCategory, setActiveCategory] = useState("all");
 
   const handleNewsMenu = (newCategory) => {
     setCategory(newCategory);
-    setActiveCategory(newCategory);
   };
 
   // Define categories array with IDs and names
@@ -41,7 +39,7 @@ const Footer = () => {
                     <p
                       onClick={() => handleNewsMenu(category.id)}
                       className={`px-3 py-1 rounded cursor-pointer ${
-                        activeCategory === category.id
+                        category === category.id
                           ? "bg-[#00D991] text-white"
                           : " hover:text-black hover:bg-gray-300"
                       }`}

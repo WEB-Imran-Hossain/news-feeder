@@ -1,18 +1,25 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import SearchIcon from "../../assets/icons/search.svg";
 import "./Search.css";
 import { NewsContext } from "../../context";
+import useDebounce from "../../hooks/useDebounce";
 
 const Search = () => {
   const { searchText, setSearchText, performSearch, isSearching } =
     useContext(NewsContext);
   const [showInput, setShowInput] = useState(false);
+  const debouncedSearchText = useDebounce(searchText, 500); // Adjust the delay as needed
 
   const handleSearch = async () => {
-    if (searchText.trim()) {
-      await performSearch(searchText);
+    if (debouncedSearchText.trim()) {
+      await performSearch(debouncedSearchText);
     }
   };
+  useEffect(() => {
+    if (debouncedSearchText.trim()) {
+      performSearch(debouncedSearchText);
+    }
+  }, [debouncedSearchText, performSearch]);
 
   const handleIconClick = async () => {
     if (showInput) {
@@ -44,12 +51,6 @@ const Search = () => {
               placeholder="Search for news..."
               className="p-2 border border-gray-300 rounded focus:outline-none input-transition"
             />
-            <button
-              type="submit"
-              className="ml-2 p-2  text-white hover:text-black font-bold border-gray-300 rounded hover:bg-gray-300 bg-[#00D991] "
-            >
-              Go
-            </button>
           </form>
         )}
       </div>
