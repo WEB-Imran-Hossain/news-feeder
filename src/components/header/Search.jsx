@@ -5,32 +5,25 @@ import { NewsContext } from "../../context";
 import useDebounce from "../../hooks/useDebounce";
 
 const Search = () => {
-  const { searchText, setSearchText, performSearch, isSearching } =
+  const { searchText, setSearchText, isSearching, performSearch } =
     useContext(NewsContext);
   const [showInput, setShowInput] = useState(false);
-  const debouncedSearchText = useDebounce(searchText, 500); // Adjust the delay as needed
 
-  const handleSearch = async () => {
-    if (debouncedSearchText.trim()) {
-      await performSearch(debouncedSearchText);
-    }
-  };
+  const debouncedText = useDebounce(searchText, 500);
+
   useEffect(() => {
-    if (debouncedSearchText.trim()) {
-      performSearch(debouncedSearchText);
-    }
-  }, [debouncedSearchText, performSearch]);
+    let mount = false;
 
-  const handleIconClick = async () => {
-    if (showInput) {
-      await handleSearch();
+    if (!mount) {
+      performSearch(debouncedText.trim());
     }
+    return () => {
+      mount = true;
+    };
+  }, [debouncedText]);
+
+  const handleIconClick = () => {
     setShowInput(!showInput);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    await handleSearch();
   };
 
   return (
@@ -43,7 +36,7 @@ const Search = () => {
           alt="Search"
         />
         {showInput && (
-          <form onSubmit={handleSubmit} className="flex items-center ml-2">
+          <form className="flex items-center ml-2">
             <input
               type="text"
               value={searchText}

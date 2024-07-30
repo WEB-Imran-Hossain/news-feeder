@@ -17,41 +17,41 @@ const NewsBoard = () => {
   const newsItems = searchText ? searchResults : newsData;
 
   const renderNewsItems = (newsItems) => {
-    if (!newsItems.length) {
+    if (!newsItems?.length) {
       return <p>No news available</p>;
     }
 
-    return newsItems.map((newsItem, index) => (
+    return newsItems?.map((newsItem, index) => (
       <div
         key={index}
         className="border border-gray-200 p-4 rounded-lg shadow-md"
       >
-        <a href={newsItem.url}>
+        <a href={newsItem?.url}>
           <h2 className="mb-2.5 text-xl font-bold lg:text-2xl text-[#292219] hover:text-[#00D991] transition-colors duration-300">
-            {newsItem.title}
+            {newsItem?.title}
           </h2>
         </a>
-        <p className="text-base text-[#292219]">{newsItem.description}</p>
+        <p className="text-base text-[#292219]">{newsItem?.description}</p>
         <p className="mt-5 text-base text-[#94908C]">
           Published on:{" "}
-          {newsItem.publishedAt
-            ? new Date(newsItem.publishedAt).toLocaleDateString("en-US", {
+          {newsItem?.publishedAt
+            ? new Date(newsItem?.publishedAt).toLocaleDateString("en-US", {
                 year: "numeric",
                 month: "short",
                 day: "numeric",
               })
             : "Unknown"}
         </p>
-        {newsItem.urlToImage ? (
+        {newsItem?.urlToImage ? (
           <img
             className="w-full"
-            src={newsItem.urlToImage}
-            alt={newsItem.title || "News thumbnail"}
+            src={newsItem?.urlToImage}
+            alt={newsItem?.title || "News thumbnail"}
           />
-        ) : newsItem.url ? (
+        ) : newsItem?.url ? (
           <div>
             <video className="w-full" controls>
-              <source src={newsItem.url} type="video/mp4" />
+              <source src={newsItem?.url} type="video/mp4" />
             </video>
           </div>
         ) : (
@@ -68,7 +68,7 @@ const NewsBoard = () => {
   return (
     <main className="my-10 lg:my-14">
       <div className="w-[80%] mx-auto">
-        {searchText && searchResults.length === 0 && (
+        {searchText && searchResults?.length === 0 && (
           <p>No search results found</p>
         )}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
